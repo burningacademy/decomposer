@@ -1,0 +1,25 @@
+syntax = "proto2";
+package com.decomposer.runtime.ir;
+import "com/decomposer/runtime/ir/KotlinIr.proto";
+
+option java_outer_classname = "JvmIr";
+option optimize_for = SPEED;
+
+/* Stored in JVM .class annotations */
+
+message XStatementOrExpression {
+    oneof kind {
+        IrStatement statement = 1;
+        IrExpression expression = 2;
+    }
+}
+
+message ClassOrFile {
+    repeated IrDeclaration declaration = 1;
+    repeated IrType type = 2;
+    repeated IdSignature signature = 3;
+    repeated string string = 4;
+    repeated XStatementOrExpression body = 5;
+    repeated string debug_info = 6;
+    required string file_facade_fq_name = 7;
+}
